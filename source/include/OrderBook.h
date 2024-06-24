@@ -1,20 +1,21 @@
 #ifndef ORDERBOOK_H
 #define ORDERBOOK_H
 
-#include <Order.h>
-#include <PriceLevel.h>
+#include "Order.h"
+#include "PriceLevel.h"
 
 #include <map>
-
+#include <utility>
 /**
  * @class OrderBook
  * @brief Manages the order book for handling buy and sell orders.
  */
 class OrderBook {
     private:
+        enum OrderType {BUY, SELL};
         std::map<double, PriceLevel> m_bids;  ///< Bid price levels
         std::map<double, PriceLevel> m_asks;  ///< Ask price levels
-        std::unordered_map<int, double> m_price_map;  ///< Maps order IDs to prices
+        std::unordered_map<int, std::pair<double, OrderType>> m_price_map;  ///< Maps order IDs to prices
     public:
         /**
          * @brief Handles a buy order.
